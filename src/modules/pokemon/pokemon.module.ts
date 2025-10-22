@@ -19,9 +19,10 @@ import { Pokemon, PokemonSchema } from './entities/pokemon.entity';
       {
         name: Pokemon.name, // Nombre de la coleccion, el cual sería "pokemons"
         schema: PokemonSchema,// Importamos la constante que creamos 
-                              // Para poder exportar el schema 
+        // Para poder exportar el schema 
       }
     ])
-  ]
+  ],
+  exports: [MongooseModule],// Exportamos el MongooseModule para poder usarlo en otros módulos
 })
 export class PokemonModule {}

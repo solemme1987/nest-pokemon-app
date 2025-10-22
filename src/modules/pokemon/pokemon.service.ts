@@ -7,7 +7,9 @@ import { Pokemon } from './entities/pokemon.entity';
 
 import { CreatePokemonDto } from './dto/create-pokemon.dto';
 import { UpdatePokemonDto } from './dto/update-pokemon.dto';
-import { not } from 'rxjs/internal/util/not';
+import { PaginationDto } from 'src/common/dtos/pagination.dto';
+import { of } from 'rxjs';
+
 
 @Injectable()
 export class PokemonService {
@@ -32,8 +34,16 @@ export class PokemonService {
     }
   }
 
-  findAll() {
-    return `This action returns all pokemon`;
+  findAll(paginationDto:PaginationDto) {
+
+    const { limit = 10, offset = 0 } = paginationDto;
+
+    return  this.pokemonModel.find()
+    .limit( limit ) // Cantidad de resultados a mostrar
+    .skip( offset ) // Cantidad de resultados a omitir - paginacion
+    .sort({ no: 1 }) // Ordeno los pokemons en la columna numero de forma ascendente
+    .select('-__v'); // Excluyo la columna __v de la respuesta
+
   }
 
   async findOne(term: string): Promise<Pokemon | null> {
