@@ -37,7 +37,7 @@ export class SeedService {
       const no = +segments[segments.length - 2];//De esta forma tomamos el numero del pokemon
 
       pokemonToInsert.push({ name, no });
-      console.log({ name, no });
+      // console.log({ name, no });
     });
 
     // Esta forma es la mas optioma para insertar muchos registros a la vez

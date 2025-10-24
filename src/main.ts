@@ -26,5 +26,6 @@ async function bootstrap() {
 
   // Escuchamos en el puerto 3000 o el que nos asigne la plataforma
   await app.listen(process.env.PORT ?? 3000);
+  console.log(`App running on port ${process.env.PORT}`);
 }
 bootstrap();
