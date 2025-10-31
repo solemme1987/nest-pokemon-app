@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  pokedexapp:
+    depends_on:
+      - db
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    image: pokedex-docker
+    container_name: pokedexapp
+    restart: always # reiniciar el contenedor si se detiene
+    ports:
+      - "${PORT}:${PORT}"
+    # working_dir: /var/www/pokedex
+    # Aqui van las mismas variables de entorno que en el .env
+    environment:
+      MONGODB: ${MONGODB}
+      PORT: ${PORT}
+      DEFAULT_LIMIT: ${DEFAULT_LIMIT}
+    # volumes:
+    #   - ./:/var/www/pokedex
+
+  db:
+    image: mongo:5
+    container_name: mongo-poke
+    # Significa que el contenedor se reiniciara automaticamente si se detiene o se cae
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGODB_DATABASE: nest-pokemon
+    # esta linea de codigo la activo para que la data no se pierda al reiniciar el contenedor 
+    # o eliminar el contenedor
+    volumes:
+      - ./mongo:/data/db
